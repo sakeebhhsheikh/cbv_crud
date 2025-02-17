@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration</title>
+</head>
+<body>
+    <h1>Register Customer</h1>
+    <hr>
+    <form action="{% url "Register" %}" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+
+        <button type="submit">Register Customer</button>
+    </form>
+    <hr>
+    <table border=1>
+        <tr>
+            <th>SR.NO.</th>
+            <th>NAME</th>
+            <th>CONTACT</th>
+            <th>Action</th>
+        </tr>
+        {% for rec in data %}
+           <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>{{ rec.cust_name }}</td>
+                <td>{{ rec.cust_contact }}</td>
+                <td><a href="{% url "Update" rec.id %}">Update</a>
+                    <a href="{% url "Delete" rec.id %}">Delete</a>
+                </td>
+           </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>
